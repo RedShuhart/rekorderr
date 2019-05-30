@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.iyushchuk.rekorderr"
+        minSdkVersion 28
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    def rxJavaVersion = '2.2.7'
+    def rxAndroidVersion = '2.1.1'
+    def daggerVersion = '2.21'
+    def moxyVersion = '1.5.5'
+    def glideVersion = '4.9.0'
+    def ciceroneVersion = '5.0.0'
+    def androidXVersion = '1.0.0'
+    def room_version = "2.1.0-rc01"
+    def cameraview_version = "2.0.0-beta05"
+    def audioprocessor_version = "1.6.0"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+
+    // Cicerone
+    implementation "ru.terrakok.cicerone:cicerone:$ciceroneVersion"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    compileOnly "javax.annotation:jsr250-api:1.0"
+
+    // Glide
+    implementation "com.arello-mobile:moxy:$moxyVersion"
+    implementation "com.arello-mobile:moxy-app-compat:$moxyVersion"
+    kapt "com.arello-mobile:moxy-compiler:$moxyVersion"
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // UI
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.recyclerview:recyclerview:$androidXVersion"
+    implementation "androidx.cardview:cardview:$androidXVersion"
+    implementation "com.google.android.material:material:$androidXVersion"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    // CameraView
+    implementation "com.otaliastudios:cameraview:$cameraview_version"
+
+    // AudioRecorder
+    implementation "com.github.piasy:rxandroidaudio:$audioprocessor_version"
+    implementation "com.github.piasy:AudioProcessor:$audioprocessor_version"
+
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    testImplementation "org.mockito:mockito-core:2.25.1"
+
+
+
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+}
