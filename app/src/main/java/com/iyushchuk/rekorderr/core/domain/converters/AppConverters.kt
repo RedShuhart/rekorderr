@@ -7,20 +7,20 @@ import java.time.Instant
 class AppConverters {
     @TypeConverter
     fun fromInstant(instant: Instant?): Long? {
-        return instant?.let { instant.toEpochMilli() }
+        return instant?.toEpochMilli()
     }
 
     @TypeConverter
     fun toInstant(value: Long?): Instant? {
-        return value?.let { Instant.ofEpochMilli(value) }
+        return value?.let { Instant.ofEpochMilli(it) }
     }
 
     @TypeConverter
     fun fromRekordType(rekordType: RekordType?): String? {
-        return rekordType?.let { rekordType.asString }
+        return rekordType?.asString
     }
     @TypeConverter
     fun toRekordType(type: String?): RekordType? {
-        return type.let { RekordType.fromString(type) }
+        return type?.let { RekordType.fromString(it) }
     }
 }

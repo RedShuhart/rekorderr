@@ -12,7 +12,7 @@ class RoutingModule {
 
     @AppScope
     @Provides
-    fun provideCicerone(router: AppRouter) = Cicerone.create(router)
+    fun provideCicerone(router: AppRouter): Cicerone<AppRouter> = Cicerone.create(router)
 
     @AppScope
     @Provides

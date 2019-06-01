@@ -11,6 +11,7 @@ import javax.inject.Singleton
 @Module
 class DataBaseModule {
 
+    @DbScope
     @Provides
     @Singleton
     fun provideDatabse(context: Context): AppDatabase {
@@ -20,7 +21,9 @@ class DataBaseModule {
             .build()
     }
 
+    @DbScope
     @Provides
+    @Singleton
     fun provideRekordDao(appDataBase: AppDatabase): RekordDao {
         return appDataBase.rekordDao()
     }
