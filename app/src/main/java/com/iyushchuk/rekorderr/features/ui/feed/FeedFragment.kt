@@ -39,8 +39,8 @@ class FeedFragment : BaseMvpFragment(), FeedView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val feedHolder: MutableList<Rekord> = arguments!!.getParcelableArrayList(FEED) ?: mutableListOf()
-        getActivityComponent().plus(FeedModule(feedHolder)).inject(this)
+        val feed: MutableList<Rekord> = arguments!!.getParcelableArrayList(FEED) ?: mutableListOf()
+        getActivityComponent().plus(FeedModule(feed)).inject(this)
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
@@ -68,6 +68,10 @@ class FeedFragment : BaseMvpFragment(), FeedView {
             }
             R.id.list -> {
                 presenter.switchLayout(LIST)
+                true
+            }
+            R.id.record_video -> {
+                presenter.goToVideoMaker()
                 true
             }
             else -> super.onOptionsItemSelected(item)

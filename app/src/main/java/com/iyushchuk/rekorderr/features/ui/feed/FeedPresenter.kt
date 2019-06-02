@@ -67,6 +67,7 @@ class FeedPresenter @Inject internal constructor(
     }
 
     fun goToVideoMaker() {
+        router.openVideoRekorderScreen(Rekord(rekordType = RekordType.VIDEO))
     }
 
     fun goToPhotoMaker() {

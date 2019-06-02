@@ -81,3 +81,10 @@ class ViewType {
     }
 }
 
+class RecordingState {
+    companion object {
+        const val STOPPED = false
+        const val RECORDING = true
+    }
+}
+

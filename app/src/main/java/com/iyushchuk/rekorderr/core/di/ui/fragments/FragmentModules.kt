@@ -13,3 +13,9 @@ class FeedModule(private val feed: MutableList<Rekord>) {
     @Provides
     internal fun provideFeed(): MutableList<Rekord> = feed
 }
+
+@Module
+class VideoRekorderModule(private val video: Rekord) {
+    @Provides
+    internal fun provideVideo(): Rekord = video
+}

@@ -12,4 +12,8 @@ class AppRouter: Router() {
     fun openFeedCardsScreen(feed: MutableList<Rekord>) {
         newRootScreen(AppScreens.FeedScreen(feed))
     }
+
+    fun openVideoRekorderScreen(video: Rekord) {
+        newRootScreen(AppScreens.VideoRekorderScreen(video))
+    }
 }

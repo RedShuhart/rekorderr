@@ -8,11 +8,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.iyushchuk.rekorderr.core.shared.getFileDirectory
 import java.time.Instant
+import java.util.*
 import kotlin.reflect.full.isSubclassOf
 
 @Entity(tableName = "rekords")
 data class Rekord(
-    @PrimaryKey var id: Long,
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: String = UUID.randomUUID().toString(),
 
     @ColumnInfo(name = "type")
     val rekordType: RekordType,
@@ -31,7 +34,7 @@ data class Rekord(
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readLong(),
+        parcel.readString()!!,
         RekordType.fromString(parcel.readString() ?: ""),
         parcel.readString(),
         parcel.readString(),
@@ -40,7 +43,7 @@ data class Rekord(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
+        parcel.writeString(id)
         parcel.writeString(rekordType.asString)
         parcel.writeString(title)
         parcel.writeString(notes)
