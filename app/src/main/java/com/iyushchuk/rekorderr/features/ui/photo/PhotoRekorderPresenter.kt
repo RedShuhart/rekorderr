@@ -22,7 +22,7 @@ class PhotoRekorderPresenter @Inject internal constructor(
 
     fun onPhotoTaken(result: PictureResult) {
         result.toFile(File(photo.getPath())) {}
-        // router.openFormScreen(photo)
+        router.openRekordFormScreen(photo)
     }
 
     fun onTakePhoto() {

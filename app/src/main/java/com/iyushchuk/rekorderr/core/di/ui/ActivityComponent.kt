@@ -13,6 +13,7 @@ interface ActivityComponent {
     operator fun plus(module: FeedModule): FeedComponent
     operator fun plus(module: VideoRekorderModule): VideoRekorderComponent
     operator fun plus(module: PhotoRekorderModule): PhotoRekorderComponent
+    operator fun plus(module: RekordFormModule): RekordFormComponent
 
     fun inject(baseActivity: BaseActivity)
     fun inject(mainActivity: MainActivity)

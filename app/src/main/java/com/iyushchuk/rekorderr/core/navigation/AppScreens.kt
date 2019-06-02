@@ -5,6 +5,7 @@ import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.features.ui.feed.FeedFragment
 import com.iyushchuk.rekorderr.features.ui.splash.SplashFragment
 import com.iyushchuk.rekorderr.features.ui.video.PhotoRekorderFragment
+import com.iyushchuk.rekorderr.features.ui.video.RekordFormFragment
 import com.iyushchuk.rekorderr.features.ui.video.VideoRekorderFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
@@ -31,6 +32,12 @@ class AppScreens {
     class FeedScreen(private val feed: MutableList<Rekord>): SupportAppScreen() {
         override fun getFragment(): Fragment {
             return FeedFragment.newInstance(feed)
+        }
+    }
+
+    class RekordFormScreen(private val rekord: Rekord): SupportAppScreen() {
+        override fun getFragment(): Fragment {
+            return RekordFormFragment.newInstance(rekord)
         }
     }
 }

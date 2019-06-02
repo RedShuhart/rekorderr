@@ -25,3 +25,9 @@ class PhotoRekorderModule(private val photo: Rekord) {
     @Provides
     internal fun providePhoto(): Rekord = photo
 }
+
+@Module
+class RekordFormModule(private val rekord: Rekord) {
+    @Provides
+    internal fun provideRekord(): Rekord = rekord
+}

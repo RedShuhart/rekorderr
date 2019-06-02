@@ -98,9 +98,9 @@ class FeedAdapter(
 
         protected fun resolveTypeIcon(item: Rekord, context: Context): Drawable =
             when(item.rekordType) {
-                RekordType.VIDEO -> context.resources.getDrawable(R.drawable.video_outline)
-                RekordType.AUDIO -> context.resources.getDrawable(R.drawable.microphone_outline)
-                RekordType.PHOTO -> context.resources.getDrawable(R.drawable.image_outline)
+                RekordType.VIDEO -> context.resources.getDrawable(R.drawable.video_outline, null)
+                RekordType.AUDIO -> context.resources.getDrawable(R.drawable.microphone_outline, null)
+                RekordType.PHOTO -> context.resources.getDrawable(R.drawable.image_outline, null)
             }
 
         protected fun resolveThumbnailInfo(item: Rekord, itemInfo: AppCompatTextView, thumbnail: AppCompatImageView, context: Context) =
