@@ -33,10 +33,11 @@ class FeedPresenter @Inject internal constructor(
     }
 
     fun onFeedItemClick(position: Int) {
-        when(feed[position].rekordType) {
-            RekordType.VIDEO -> goToVideoViewer()
-            RekordType.PHOTO -> goToPhotoViewer()
-            RekordType.AUDIO -> goToAudioViewer()
+        val rekord = feed[position]
+        when(rekord.rekordType) {
+            RekordType.VIDEO -> goToVideoViewer(rekord)
+            RekordType.PHOTO -> goToPhotoViewer(rekord)
+            RekordType.AUDIO -> goToAudioViewer(rekord)
         }
     }
 
@@ -77,13 +78,14 @@ class FeedPresenter @Inject internal constructor(
     fun goToAudioMaker() {
     }
 
-    private fun goToVideoViewer() {
+    private fun goToVideoViewer(rekord: Rekord) {
     }
 
-    private fun goToPhotoViewer() {
+    private fun goToPhotoViewer(rekord: Rekord) {
+        router.openPhotoViewerScreen(rekord)
     }
 
-    private fun goToAudioViewer() {
+    private fun goToAudioViewer(rekord: Rekord) {
     }
 
 }

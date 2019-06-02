@@ -24,4 +24,8 @@ class AppRouter: Router() {
     fun openRekordFormScreen(photo: Rekord) {
         newRootScreen(AppScreens.RekordFormScreen(photo))
     }
+
+    fun openPhotoViewerScreen(photo: Rekord) {
+        newRootScreen(AppScreens.PhotoViewerScreen(photo))
+    }
 }
