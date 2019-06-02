@@ -12,7 +12,7 @@ import io.reactivex.Observable
 interface RekordDao {
 
     @Query("SELECT * FROM rekords")
-    fun getAll(): Flowable<List<Rekord>>
+    fun getAll(): Observable<List<Rekord>>
 
     @Insert
     fun insert(rekord: Rekord)

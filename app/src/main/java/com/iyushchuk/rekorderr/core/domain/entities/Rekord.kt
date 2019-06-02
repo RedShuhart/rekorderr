@@ -27,7 +27,7 @@ data class Rekord(
     val createdAt: Instant = Instant.now(),
 
     @ColumnInfo(name = "length")
-    val length: Int? = null
+    val length: Long? = null
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -36,7 +36,7 @@ data class Rekord(
         parcel.readString(),
         parcel.readString(),
         Instant.ofEpochMilli(parcel.readLong()),
-        parcel.readInt().let { if (it == 0 ) null else it }
+        parcel.readLong().let { if (it == 0L ) null else it }
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -45,7 +45,7 @@ data class Rekord(
         parcel.writeString(title)
         parcel.writeString(notes)
         parcel.writeLong(createdAt.toEpochMilli())
-        parcel.writeInt(length ?: 0)
+        parcel.writeLong(length ?: 0L)
     }
 
     override fun describeContents(): Int {

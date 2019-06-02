@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/take_picture"
+          android:title="@string/take_picture"
+          app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/record_video"
+          android:title="@string/record_video"
+          app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/record_audio"
+          android:title="@string/record_audio"
+          app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/grid"
+          android:title="@string/grid"
+          app:showAsAction="collapseActionView"/>
+    <item android:id="@+id/list"
+          android:title="@string/list"
+          app:showAsAction="collapseActionView"/>
+</menu>

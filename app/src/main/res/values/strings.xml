@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Flickr Gallery</string>
+    <string name="app_name">Rekorderr</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="record_video">Record Video</string>
+    <string name="record_audio">Record Audio</string>
+    <string name="change_layout">Change Layout</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
 </resources>

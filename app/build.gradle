@@ -34,7 +34,7 @@ dependencies {
     def glideVersion = '4.9.0'
     def ciceroneVersion = '5.0.0'
     def androidXVersion = '1.0.0'
-    def room_version = "2.1.0-rc01"
+    def room_version = "2.1.0-alpha07"
     def cameraview_version = "2.0.0-beta05"
     def audioprocessor_version = "1.6.0"
 
@@ -74,6 +74,7 @@ dependencies {
     implementation "com.google.android.material:material:$androidXVersion"
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.1'
 
     // CameraView
     implementation "com.otaliastudios:cameraview:$cameraview_version"
