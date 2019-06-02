@@ -19,3 +19,9 @@ class VideoRekorderModule(private val video: Rekord) {
     @Provides
     internal fun provideVideo(): Rekord = video
 }
+
+@Module
+class PhotoRekorderModule(private val photo: Rekord) {
+    @Provides
+    internal fun providePhoto(): Rekord = photo
+}

@@ -41,6 +41,7 @@ class VideoRekorderPresenter @Inject internal constructor(
         val retriever = MediaMetadataRetriever()
         retriever.setDataSource(video.getPath())
         val time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        retriever.release()
         val timeInMillis = time.toLong()
         // router.openFormScreen(video.copy(length = timeInMillis))
     }

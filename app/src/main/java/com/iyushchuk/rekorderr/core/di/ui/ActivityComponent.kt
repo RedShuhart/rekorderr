@@ -12,6 +12,7 @@ interface ActivityComponent {
     operator fun plus(module: SplashModule): SplashComponent
     operator fun plus(module: FeedModule): FeedComponent
     operator fun plus(module: VideoRekorderModule): VideoRekorderComponent
+    operator fun plus(module: PhotoRekorderModule): PhotoRekorderComponent
 
     fun inject(baseActivity: BaseActivity)
     fun inject(mainActivity: MainActivity)

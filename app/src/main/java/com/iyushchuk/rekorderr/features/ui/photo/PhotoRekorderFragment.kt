@@ -6,35 +6,30 @@ import androidx.appcompat.widget.AppCompatImageButton
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.iyushchuk.rekorderr.R
-import com.iyushchuk.rekorderr.core.di.ui.fragments.VideoRekorderModule
+import com.iyushchuk.rekorderr.core.di.ui.fragments.PhotoRekorderModule
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
-import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.RECORDING
-import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.STOPPED
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
-import com.otaliastudios.cameraview.CameraListener
-import com.otaliastudios.cameraview.CameraView
-import com.otaliastudios.cameraview.Mode
-import com.otaliastudios.cameraview.VideoResult
+import com.otaliastudios.cameraview.*
 import java.io.File
 
 import javax.inject.Inject
 
-class VideoRekorderFragment : BaseMvpFragment(), VideoRekorderView {
+class PhotoRekorderFragment : BaseMvpFragment(), PhotoRekorderView {
 
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: VideoRekorderPresenter
+    lateinit var presenter: PhotoRekorderPresenter
 
     @ProvidePresenter
-    fun providePresenter(): VideoRekorderPresenter = presenter
+    fun providePresenter(): PhotoRekorderPresenter = presenter
 
     private lateinit var actionButton: AppCompatImageButton
     private lateinit var cameraView: CameraView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val video: Rekord = arguments!!.getParcelable(VIDEO)!!
-        getActivityComponent().plus(VideoRekorderModule(video)).inject(this)
+        val photo: Rekord = arguments!!.getParcelable(PHOTO)!!
+        getActivityComponent().plus(PhotoRekorderModule(photo)).inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -46,49 +41,40 @@ class VideoRekorderFragment : BaseMvpFragment(), VideoRekorderView {
         super.onViewCreated(view, savedInstanceState)
 
         actionButton = view.findViewById(R.id.action_button)
-        actionButton.setOnClickListener { presenter.changeState() }
+        actionButton.setImageResource(R.drawable.camera)
+        actionButton.setOnClickListener { presenter.onTakePhoto() }
 
         cameraView = view.findViewById(R.id.video_rekorder)
         initCameraView()
     }
 
-    override fun startTakingVideo(file: File) {
-        cameraView.takeVideo(file)
-    }
-
-    override fun stopTakingVideo() {
-        cameraView.stopVideo()
-    }
-
-    override fun changeActionButtonState(state: Boolean) {
-        when(state) {
-            STOPPED -> actionButton.setImageResource(R.drawable.record)
-            RECORDING -> actionButton.setImageResource(R.drawable.stop)
-        }
+    override fun takePhoto(file: File) {
+        cameraView.takePicture()
     }
 
     private fun initCameraView() {
         cameraView.apply {
-            mode = Mode.VIDEO
+            mode = Mode.PICTURE
             setLifecycleOwner(viewLifecycleOwner)
             addCameraListener(object : CameraListener() {
-                override fun onVideoTaken(result: VideoResult) {
-                    presenter.onVideoTaken()
+                override fun onPictureTaken(result: PictureResult) {
+                    presenter.onPhotoTaken(result)
                 }
             })
         }
     }
 
+
     companion object {
 
-        private const val VIDEO = "VIDEO"
+        private const val PHOTO = "PHOTO"
 
-        fun newInstance(video: Rekord): VideoRekorderFragment {
+        fun newInstance(photo: Rekord): PhotoRekorderFragment {
 
             val args = Bundle()
-            args.putParcelable(VIDEO, video)
+            args.putParcelable(PHOTO, photo)
 
-            val fragment = VideoRekorderFragment()
+            val fragment = PhotoRekorderFragment()
             fragment.arguments = args
             return fragment
         }

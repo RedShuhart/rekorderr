@@ -16,4 +16,8 @@ class AppRouter: Router() {
     fun openVideoRekorderScreen(video: Rekord) {
         newRootScreen(AppScreens.VideoRekorderScreen(video))
     }
+
+    fun openPhotoRekorderScreen(photo: Rekord) {
+        newRootScreen(AppScreens.PhotoRekorderScreen(photo))
+    }
 }

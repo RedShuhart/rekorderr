@@ -74,6 +74,10 @@ class FeedFragment : BaseMvpFragment(), FeedView {
                 presenter.goToVideoMaker()
                 true
             }
+            R.id.take_picture -> {
+                presenter.goToPhotoMaker()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

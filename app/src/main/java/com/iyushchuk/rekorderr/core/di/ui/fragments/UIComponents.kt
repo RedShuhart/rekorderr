@@ -2,6 +2,7 @@ package com.iyushchuk.rekorderr.core.di.ui.fragments
 
 import com.iyushchuk.rekorderr.features.ui.feed.FeedFragment
 import com.iyushchuk.rekorderr.features.ui.splash.SplashFragment
+import com.iyushchuk.rekorderr.features.ui.video.PhotoRekorderFragment
 import com.iyushchuk.rekorderr.features.ui.video.VideoRekorderFragment
 import dagger.Subcomponent
 
@@ -18,4 +19,9 @@ interface FeedComponent {
 @Subcomponent(modules = [VideoRekorderModule::class])
 interface VideoRekorderComponent {
     fun inject(fragment: VideoRekorderFragment)
+}
+
+@Subcomponent(modules = [PhotoRekorderModule::class])
+interface PhotoRekorderComponent {
+    fun inject(fragment: PhotoRekorderFragment)
 }
