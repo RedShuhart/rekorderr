@@ -1,19 +1,17 @@
-package com.iyushchuk.rekorderr.features.ui.video
+package com.iyushchuk.rekorderr.features.ui.recorders.audio
 
-import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpView
-import com.iyushchuk.rekorderr.features.ui.feed.FeedAdapter
 import java.io.File
 
-interface VideoRekorderView: BaseMvpView {
+interface AudioRekorderView: BaseMvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun startTakingVideo(file: File)
+    fun startRecordingAudio(file: File)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun stopTakingVideo()
+    fun stopRecordingAudio()
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun changeActionButtonState(state: Boolean)

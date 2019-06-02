@@ -79,10 +79,6 @@ dependencies {
     // CameraView
     implementation "com.otaliastudios:cameraview:$cameraview_version"
 
-    // AudioRecorder
-    implementation "com.github.piasy:rxandroidaudio:$audioprocessor_version"
-    implementation "com.github.piasy:AudioProcessor:$audioprocessor_version"
-
     // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

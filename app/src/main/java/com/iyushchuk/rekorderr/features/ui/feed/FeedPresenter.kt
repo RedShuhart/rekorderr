@@ -21,8 +21,8 @@ class FeedPresenter @Inject internal constructor(
     private val feed: MutableList<Rekord>
 ) : BaseMvpPresenter<FeedView>() {
 
-    val adapter = FeedAdapter(onClickListener = this::onFeedItemClick)
-    var layoutType = LIST
+    private val adapter = FeedAdapter(onClickListener = this::onFeedItemClick)
+    private var layoutType = LIST
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -32,7 +32,14 @@ class FeedPresenter @Inject internal constructor(
         getFeed()
     }
 
-    fun onFeedItemClick(position: Int) {
+    fun switchLayout(type: Int) {
+        layoutType = type
+        viewState.setLayout(layoutType)
+        adapter.viewType = layoutType
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun onFeedItemClick(position: Int) {
         val rekord = feed[position]
         when(rekord.rekordType) {
             RekordType.VIDEO -> goToVideoViewer(rekord)
@@ -41,12 +48,6 @@ class FeedPresenter @Inject internal constructor(
         }
     }
 
-    fun switchLayout(type: Int) {
-        layoutType = type
-        viewState.setLayout(layoutType)
-        adapter.viewType = layoutType
-        adapter.notifyDataSetChanged()
-    }
 
     private fun getFeed() {
         rekordRepository.getRekords()
@@ -76,9 +77,11 @@ class FeedPresenter @Inject internal constructor(
     }
 
     fun goToAudioMaker() {
+        router.openAudioRekorderScreen(Rekord(rekordType = RekordType.AUDIO))
     }
 
     private fun goToVideoViewer(rekord: Rekord) {
+        router.openRekordPlayerScreen(rekord)
     }
 
     private fun goToPhotoViewer(rekord: Rekord) {
@@ -86,6 +89,7 @@ class FeedPresenter @Inject internal constructor(
     }
 
     private fun goToAudioViewer(rekord: Rekord) {
+        router.openRekordPlayerScreen(rekord)
     }
 
 }

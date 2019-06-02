@@ -1,4 +1,4 @@
-package com.iyushchuk.rekorderr.features.ui.video
+package com.iyushchuk.rekorderr.features.ui.recorders.audio
 
 import android.content.Context
 import android.media.MediaMetadataRetriever
@@ -6,22 +6,23 @@ import com.arellomobile.mvp.InjectViewState
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.core.navigation.AppRouter
 import com.iyushchuk.rekorderr.core.schedulers.RxSchedulers
-import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.RECORDING
-import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.STOPPED
+import com.iyushchuk.rekorderr.core.shared.RecordingState
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpPresenter
 import java.io.File
-
 import javax.inject.Inject
+import android.media.MediaRecorder
+
+
 
 @InjectViewState
-class VideoRekorderPresenter @Inject internal constructor(
+class AudioRekorderPresenter @Inject internal constructor(
     private val rxSchedulers: RxSchedulers,
     private val context: Context,
     private val router: AppRouter,
     private val video: Rekord
-) : BaseMvpPresenter<VideoRekorderView>() {
+) : BaseMvpPresenter<AudioRekorderView>() {
 
-    var recordingState = STOPPED
+    var recordingState = RecordingState.STOPPED
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -32,12 +33,12 @@ class VideoRekorderPresenter @Inject internal constructor(
         recordingState = !recordingState
         viewState.changeActionButtonState(recordingState)
         when (recordingState) {
-            RECORDING -> viewState.startTakingVideo(File(video.getPath()))
-            STOPPED -> viewState.stopTakingVideo()
+            RecordingState.RECORDING -> viewState.startRecordingAudio(File(video.getPath()))
+            RecordingState.STOPPED -> viewState.stopRecordingAudio()
         }
     }
 
-    fun onVideoTaken() {
+    fun onAudioRecorded() {
         val retriever = MediaMetadataRetriever()
         retriever.setDataSource(video.getPath())
         val time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)

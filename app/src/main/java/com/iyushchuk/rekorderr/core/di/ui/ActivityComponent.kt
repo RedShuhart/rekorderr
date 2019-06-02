@@ -14,7 +14,9 @@ interface ActivityComponent {
     operator fun plus(module: VideoRekorderModule): VideoRekorderComponent
     operator fun plus(module: PhotoRekorderModule): PhotoRekorderComponent
     operator fun plus(module: RekordFormModule): RekordFormComponent
-    operator fun plus(module: PhotoViwerModule): PhotoViwerComponent
+    operator fun plus(module: PhotoViwerModule): PhotoViewerComponent
+    operator fun plus(module: RekordPlayerModule): RekordPlayerComponent
+    operator fun plus(module: AudioRekorderModule): AudioRekorderComponent
 
     fun inject(baseActivity: BaseActivity)
     fun inject(mainActivity: MainActivity)

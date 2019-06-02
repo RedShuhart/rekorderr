@@ -28,4 +28,12 @@ class AppRouter: Router() {
     fun openPhotoViewerScreen(photo: Rekord) {
         newRootScreen(AppScreens.PhotoViewerScreen(photo))
     }
+
+    fun openRekordPlayerScreen(rekord: Rekord) {
+        newRootScreen(AppScreens.RekordPlayerScreen(rekord))
+    }
+
+    fun openAudioRekorderScreen(audio: Rekord) {
+        newRootScreen(AppScreens.AudioRekorderScreen(audio))
+    }
 }

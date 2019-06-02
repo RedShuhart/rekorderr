@@ -37,3 +37,15 @@ class PhotoViwerModule(private val photo: Rekord) {
     @Provides
     internal fun providePhoto(): Rekord = photo
 }
+
+@Module
+class RekordPlayerModule(private val rekord: Rekord) {
+    @Provides
+    internal fun provideRekord(): Rekord = rekord
+}
+
+@Module
+class AudioRekorderModule(private val audio: Rekord) {
+    @Provides
+    internal fun provideAudio(): Rekord = audio
+}

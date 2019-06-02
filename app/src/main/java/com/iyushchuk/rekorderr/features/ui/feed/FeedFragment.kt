@@ -78,6 +78,10 @@ class FeedFragment : BaseMvpFragment(), FeedView {
                 presenter.goToPhotoMaker()
                 true
             }
+            R.id.record_audio -> {
+                presenter.goToAudioMaker()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

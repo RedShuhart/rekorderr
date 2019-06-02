@@ -1,4 +1,4 @@
-package com.iyushchuk.rekorderr.features.ui.video
+package com.iyushchuk.rekorderr.features.ui.recorders.photo
 
 import android.os.Bundle
 import android.view.*

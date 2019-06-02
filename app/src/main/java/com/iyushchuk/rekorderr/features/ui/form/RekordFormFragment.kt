@@ -1,17 +1,15 @@
-package com.iyushchuk.rekorderr.features.ui.video
+package com.iyushchuk.rekorderr.features.ui.recorders.video
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.textfield.TextInputEditText
 import com.iyushchuk.rekorderr.R
-import com.iyushchuk.rekorderr.core.di.ui.fragments.PhotoRekorderModule
 import com.iyushchuk.rekorderr.core.di.ui.fragments.RekordFormModule
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.core.domain.entities.RekordType
@@ -19,8 +17,6 @@ import com.iyushchuk.rekorderr.core.shared.loadImage
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
 import com.iyushchuk.rekorderr.features.ui.form.RekordFormPresenter
 import com.iyushchuk.rekorderr.features.ui.form.RekordFormView
-import com.otaliastudios.cameraview.*
-import java.io.File
 
 import javax.inject.Inject
 

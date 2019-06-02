@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:orientation="vertical"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/player"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </com.google.android.exoplayer2.ui.PlayerView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/player"
+            android:id="@+id/title"
+            tools:text="256x256"
+            app:layout_constraintStart_toStartOf="@+id/player"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

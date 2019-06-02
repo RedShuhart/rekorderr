@@ -2,10 +2,12 @@ package com.iyushchuk.rekorderr.core.di.ui.fragments
 
 import com.iyushchuk.rekorderr.features.ui.feed.FeedFragment
 import com.iyushchuk.rekorderr.features.ui.photoviewer.PhotoViewerFragment
+import com.iyushchuk.rekorderr.features.ui.player.RekordPlayerFragment
+import com.iyushchuk.rekorderr.features.ui.recorders.audio.AudioRekorderFragment
 import com.iyushchuk.rekorderr.features.ui.splash.SplashFragment
-import com.iyushchuk.rekorderr.features.ui.video.PhotoRekorderFragment
-import com.iyushchuk.rekorderr.features.ui.video.RekordFormFragment
-import com.iyushchuk.rekorderr.features.ui.video.VideoRekorderFragment
+import com.iyushchuk.rekorderr.features.ui.recorders.photo.PhotoRekorderFragment
+import com.iyushchuk.rekorderr.features.ui.recorders.video.RekordFormFragment
+import com.iyushchuk.rekorderr.features.ui.recorders.video.VideoRekorderFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [SplashModule::class])
@@ -34,6 +36,16 @@ interface RekordFormComponent {
 }
 
 @Subcomponent(modules = [PhotoViwerModule::class])
-interface PhotoViwerComponent {
+interface PhotoViewerComponent {
     fun inject(fragment: PhotoViewerFragment)
+}
+
+@Subcomponent(modules = [RekordPlayerModule::class])
+interface RekordPlayerComponent {
+    fun inject(fragment: RekordPlayerFragment)
+}
+
+@Subcomponent(modules = [AudioRekorderModule::class])
+interface AudioRekorderComponent {
+    fun inject(fragment: AudioRekorderFragment)
 }
