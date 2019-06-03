@@ -60,7 +60,7 @@ class FeedPresenter @Inject internal constructor(
             .progress()
             .subscribe(
                 {result ->
-                    Log.d("FEED", "CONTENT: $result")
+                    viewState.hideProgress()
                     feed.clear()
                     feed.addAll(result)
                     enrichAdapter(result.toMutableList())},

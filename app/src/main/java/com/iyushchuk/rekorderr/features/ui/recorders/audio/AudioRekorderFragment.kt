@@ -60,6 +60,7 @@ class AudioRekorderFragment : BaseMvpFragment(), AudioRekorderView {
     override fun stopRecordingAudio() {
         audioRecorder.stop()
         audioRecorder.release()
+        presenter.onAudioRecorded()
     }
 
     override fun changeActionButtonState(state: Boolean) {

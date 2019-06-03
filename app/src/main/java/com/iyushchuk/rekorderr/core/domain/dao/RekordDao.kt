@@ -20,5 +20,5 @@ interface RekordDao {
     fun insert(rekord: Rekord): Completable
 
     @Delete
-    fun delete(rekord: Rekord)
+    fun delete(rekord: Rekord): Completable
 }

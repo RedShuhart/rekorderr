@@ -24,7 +24,7 @@ class FeedAdapter(
     val onClickListener: (position: Int) -> Unit = {}
 ): RecyclerView.Adapter<FeedAdapter.RekordViewHolder>(), MutableList<Rekord> by data {
 
-    public var viewType = LIST
+    var viewType = LIST
 
     override fun onBindViewHolder(holder: RekordViewHolder, position: Int) {
         val item = get(position)
@@ -105,8 +105,11 @@ class FeedAdapter(
 
         protected fun resolveThumbnailInfo(item: Rekord, itemInfo: AppCompatTextView, thumbnail: AppCompatImageView, context: Context) =
             when (item.rekordType) {
-                RekordType.VIDEO, RekordType.AUDIO -> {
+                RekordType.VIDEO -> {
                     loadImage(context, item, thumbnail)
+                    itemInfo.text = millisToLengthString(item.length)
+                }
+                RekordType.AUDIO -> {
                     itemInfo.text = millisToLengthString(item.length)
                 }
                 RekordType.PHOTO -> loadImageWithInfo(context, item, thumbnail) { info -> itemInfo.text = info }

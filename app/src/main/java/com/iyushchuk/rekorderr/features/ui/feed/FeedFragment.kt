@@ -49,7 +49,6 @@ class FeedFragment : BaseMvpFragment(), FeedView {
         getActivityComponent().plus(FeedModule(feed)).inject(this)
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        Log.d("FEED", "IN FEED")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -120,10 +119,12 @@ class FeedFragment : BaseMvpFragment(), FeedView {
     }
 
     override fun showProgress() {
+        Log.d("FEED", "showProgress")
         progressBar.show()
     }
 
     override fun hideProgress() {
+        Log.d("FEED", "hideProgress")
         progressBar.hide()
     }
 

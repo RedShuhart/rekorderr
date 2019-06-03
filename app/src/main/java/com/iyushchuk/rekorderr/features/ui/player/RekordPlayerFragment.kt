@@ -44,7 +44,6 @@ class RekordPlayerFragment : BaseMvpFragment(), RekordPlayerView {
 
     private var trackSelector: DefaultTrackSelector? = null
     private var lastSeenTrackGroupArray: TrackGroupArray? = null
-    private val videoTrackSelectionFactory = AdaptiveTrackSelection.Factory()
     private lateinit var mediaDataSourceFactory: DataSource.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class RekordPlayerFragment : BaseMvpFragment(), RekordPlayerView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.photo_video_fragment, container, false)
+        return inflater.inflate(R.layout.player_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,7 +83,7 @@ class RekordPlayerFragment : BaseMvpFragment(), RekordPlayerView {
 
     private fun initializePlayer() {
 
-        trackSelector = DefaultTrackSelector(videoTrackSelectionFactory)
+        trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory())
         mediaDataSourceFactory = DefaultDataSourceFactory(requireContext(), Util.getUserAgent(requireContext(), "Rekorderr"))
 
         val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory)

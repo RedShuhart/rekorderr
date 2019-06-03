@@ -16,8 +16,8 @@ class RekordRepository  @Inject internal constructor(
 
     fun saveRekord(rekord: Rekord) = rekordDao.insert(rekord)
 
-    fun deleteRekord(rekord: Rekord)  {
+    fun deleteRekord(rekord: Rekord): Completable  {
         File(rekord.getPath()).delete()
-        rekordDao.delete(rekord)
+        return rekordDao.delete(rekord)
     }
 }
