@@ -7,6 +7,7 @@ import com.iyushchuk.rekorderr.core.domain.repository.RekordRepository
 import com.iyushchuk.rekorderr.core.navigation.AppRouter
 import com.iyushchuk.rekorderr.core.schedulers.RxSchedulers
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpPresenter
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -21,8 +22,11 @@ class RekordFormPresenter @Inject internal constructor(
 
     fun saveRekord(text: String) {
         val finalRekord = rekord.copy(title = text)
-        val saved = rekordRepository.saveRekord(finalRekord)
-        router.openFeedCardsScreen(mutableListOf(saved))
+        rekordRepository.saveRekord(finalRekord)
+            .compose(rxSchedulers.ioToMainCompletable())
+            .subscribe {
+                router.openFeedCardsScreen(mutableListOf(finalRekord))
+            }.unsubscribeOnDestroy()
     }
 
     fun cancel() {

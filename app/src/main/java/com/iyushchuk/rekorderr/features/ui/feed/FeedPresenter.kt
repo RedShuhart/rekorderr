@@ -1,6 +1,7 @@
 package com.iyushchuk.rekorderr.features.ui.feed
 
 import android.content.Context
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.core.domain.entities.RekordType
@@ -31,7 +32,6 @@ class FeedPresenter @Inject internal constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.hideProgress()
         viewState.setAdapter(adapter)
         viewState.setLayout(layoutType)
         getFeed()
@@ -60,6 +60,7 @@ class FeedPresenter @Inject internal constructor(
             .progress()
             .subscribe(
                 {result ->
+                    Log.d("FEED", "CONTENT: $result")
                     feed.clear()
                     feed.addAll(result)
                     enrichAdapter(result.toMutableList())},

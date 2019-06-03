@@ -5,8 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface RekordDao {
@@ -15,7 +17,7 @@ interface RekordDao {
     fun getAll(): Observable<List<Rekord>>
 
     @Insert
-    fun insert(rekord: Rekord)
+    fun insert(rekord: Rekord): Completable
 
     @Delete
     fun delete(rekord: Rekord)

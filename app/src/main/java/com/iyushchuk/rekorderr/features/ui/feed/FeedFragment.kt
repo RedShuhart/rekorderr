@@ -2,6 +2,7 @@ package com.iyushchuk.rekorderr.features.ui.feed
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.ContentLoadingProgressBar
@@ -20,6 +21,7 @@ import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.VIDEO_REQUES
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.GRID
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.LIST
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class FeedFragment : BaseMvpFragment(), FeedView {
@@ -47,6 +49,7 @@ class FeedFragment : BaseMvpFragment(), FeedView {
         getActivityComponent().plus(FeedModule(feed)).inject(this)
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
+        Log.d("FEED", "IN FEED")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

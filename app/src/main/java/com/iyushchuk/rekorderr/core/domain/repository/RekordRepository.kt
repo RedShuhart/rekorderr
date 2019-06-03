@@ -2,6 +2,7 @@ package com.iyushchuk.rekorderr.core.domain.repository
 
 import com.iyushchuk.rekorderr.core.domain.dao.RekordDao
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import java.io.File
@@ -13,10 +14,7 @@ class RekordRepository  @Inject internal constructor(
 
     fun getRekords(): Observable<List<Rekord>> = rekordDao.getAll()
 
-    fun saveRekord(rekord: Rekord): Rekord  {
-        rekordDao.insert(rekord)
-        return rekord
-    }
+    fun saveRekord(rekord: Rekord) = rekordDao.insert(rekord)
 
     fun deleteRekord(rekord: Rekord)  {
         File(rekord.getPath()).delete()

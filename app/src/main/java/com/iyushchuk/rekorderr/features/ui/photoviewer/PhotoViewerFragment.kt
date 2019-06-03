@@ -35,7 +35,7 @@ class PhotoViewerFragment : BaseMvpFragment(), PhotoViewerView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.photo_video_fragment, container, false)
+        return inflater.inflate(R.layout.photo_view_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

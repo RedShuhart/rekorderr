@@ -78,6 +78,7 @@ dependencies {
 
     // CameraView
     implementation "com.otaliastudios:cameraview:$cameraview_version"
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
 
     // Testing
     testImplementation 'junit:junit:4.12'

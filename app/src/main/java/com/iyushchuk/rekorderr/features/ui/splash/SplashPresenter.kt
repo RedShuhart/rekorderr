@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.features.ui.splash
 
+import android.util.Log
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.core.domain.repository.RekordRepository
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpPresenter

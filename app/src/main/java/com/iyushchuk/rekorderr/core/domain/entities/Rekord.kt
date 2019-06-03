@@ -74,18 +74,13 @@ sealed class RekordType(val asString: String, val extension: String, val directo
     object AUDIO : RekordType("audio", ".m4a", Environment.DIRECTORY_MUSIC)
     object PHOTO : RekordType("photo", ".jpeg", Environment.DIRECTORY_PICTURES)
 
-        companion object {
-            private val map = RekordType::class.nestedClasses
-                .filter { it.isSubclassOf(RekordType::class) }
-                .map { it.objectInstance }
-                .filterIsInstance<RekordType>()
-                .associateBy { it.asString }
+    companion object {
 
-            fun fromString(type: String?) = requireNotNull(map[type]) {
-                "No such constant ${RekordType::class.java.name}.$type"
-            }
-
-            val types = map.keys.toList()
-            val values = map.values.toList()
+    fun fromString(type: String) = when (type) {
+            VIDEO.asString -> VIDEO
+            AUDIO.asString -> AUDIO
+            PHOTO.asString -> PHOTO
+            else -> throw  Exception("No such constant ${RekordType::class.java.name}.$type")
         }
+    }
 }

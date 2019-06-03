@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.core.schedulers
 
+import io.reactivex.CompletableTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.Scheduler
 import io.reactivex.SingleTransformer
@@ -30,6 +31,22 @@ abstract class RxSchedulers {
 
     fun <T> computationToMainSingle(): SingleTransformer<T, T> {
         return SingleTransformer { objectObservable ->
+            objectObservable
+                .subscribeOn(computation())
+                .observeOn(mainThread())
+        }
+    }
+
+    fun <T> ioToMainSingle(): SingleTransformer<T, T> {
+        return SingleTransformer { objectObservable ->
+            objectObservable
+                .subscribeOn(computation())
+                .observeOn(mainThread())
+        }
+    }
+
+    fun ioToMainCompletable(): CompletableTransformer {
+        return CompletableTransformer { objectObservable ->
             objectObservable
                 .subscribeOn(computation())
                 .observeOn(mainThread())
