@@ -14,4 +14,7 @@ interface FeedView: BaseMvpView, ProgressMvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setLayout(layoutType: Int)
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun askForPermissions(target: List<String>, code: Int)
+
 }

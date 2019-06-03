@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.core.shared
 
+import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -14,10 +15,9 @@ import com.iyushchuk.rekorderr.core.domain.entities.RekordType
 import java.time.Instant
 import java.time.ZoneId.systemDefault
 import java.time.format.DateTimeFormatter
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.github.piasy.rxandroidaudio.PlayConfig.uri
-
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 
 
 
@@ -87,4 +87,35 @@ class RecordingState {
         const val RECORDING = true
     }
 }
+
+sealed class AppPermissions {
+    companion object {
+
+        const val AUDIO_REQUEST_KEY = 1
+        const val VIDEO_REQUEST_KEY = 2
+        const val PHOTO_REQUEST_KEY = 3
+        const val STORAGE_REQUEST_KEY = 4
+
+        private val permissions = mapOf(
+            AUDIO_REQUEST_KEY to listOf(Manifest.permission.RECORD_AUDIO),
+            VIDEO_REQUEST_KEY to listOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA),
+            PHOTO_REQUEST_KEY to listOf(Manifest.permission.CAMERA),
+            STORAGE_REQUEST_KEY to listOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        )
+
+        fun getPermission(key: Int) = permissions[key]
+
+        fun getUnsatisfiedPermissions(context: Context, vararg keys: Int) = permissions
+            .filterKeys { it in keys }
+            .values
+            .toList()
+            .flatten()
+            .distinct()
+            .filter { ActivityCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED }
+    }
+}
+
 

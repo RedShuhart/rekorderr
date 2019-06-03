@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.features.ui.feed
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -13,6 +14,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.iyushchuk.rekorderr.R
 import com.iyushchuk.rekorderr.core.di.ui.fragments.FeedModule
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.AUDIO_REQUEST_KEY
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.PHOTO_REQUEST_KEY
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.VIDEO_REQUEST_KEY
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.GRID
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.LIST
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
@@ -86,6 +90,20 @@ class FeedFragment : BaseMvpFragment(), FeedView {
         }
     }
 
+    override fun askForPermissions(target: List<String>, code: Int) {
+        requestPermissions(target.toTypedArray(), code)
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when {
+            requestCode == AUDIO_REQUEST_KEY && areAllGrated(grantResults) -> presenter.goToAudioMaker()
+            requestCode == VIDEO_REQUEST_KEY && areAllGrated(grantResults) -> presenter.goToVideoMaker()
+            requestCode == PHOTO_REQUEST_KEY && areAllGrated(grantResults) -> presenter.goToPhotoMaker()
+            else -> {}
+        }
+    }
+
     override fun setAdapter(adapter: RecyclerView.Adapter<FeedAdapter.RekordViewHolder>) {
         feedView.adapter = adapter
     }
@@ -106,6 +124,8 @@ class FeedFragment : BaseMvpFragment(), FeedView {
         progressBar.hide()
     }
 
+
+    private fun areAllGrated(grantResults: IntArray) = grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
 
     companion object {
 

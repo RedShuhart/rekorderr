@@ -7,6 +7,11 @@ import com.iyushchuk.rekorderr.core.domain.entities.RekordType
 import com.iyushchuk.rekorderr.core.domain.repository.RekordRepository
 import com.iyushchuk.rekorderr.core.navigation.AppRouter
 import com.iyushchuk.rekorderr.core.schedulers.RxSchedulers
+import com.iyushchuk.rekorderr.core.shared.AppPermissions
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.AUDIO_REQUEST_KEY
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.PHOTO_REQUEST_KEY
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.STORAGE_REQUEST_KEY
+import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.VIDEO_REQUEST_KEY
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.LIST
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpPresenter
 import timber.log.Timber
@@ -68,16 +73,35 @@ class FeedPresenter @Inject internal constructor(
         adapter.notifyDataSetChanged()
     }
 
+
     fun goToVideoMaker() {
-        router.openVideoRekorderScreen(Rekord(rekordType = RekordType.VIDEO))
+        val unsatisfiedPermissions = AppPermissions.getUnsatisfiedPermissions(context, VIDEO_REQUEST_KEY, STORAGE_REQUEST_KEY)
+
+        if(unsatisfiedPermissions.isEmpty()) {
+            router.openVideoRekorderScreen(Rekord(rekordType = RekordType.VIDEO))
+        } else {
+            viewState.askForPermissions(unsatisfiedPermissions, VIDEO_REQUEST_KEY)
+        }
     }
 
     fun goToPhotoMaker() {
-        router.openPhotoRekorderScreen(Rekord(rekordType = RekordType.PHOTO))
+        val unsatisfiedPermissions = AppPermissions.getUnsatisfiedPermissions(context, PHOTO_REQUEST_KEY, STORAGE_REQUEST_KEY)
+
+        if(unsatisfiedPermissions.isEmpty()) {
+            router.openPhotoRekorderScreen(Rekord(rekordType = RekordType.PHOTO))
+        } else {
+            viewState.askForPermissions(unsatisfiedPermissions, PHOTO_REQUEST_KEY)
+        }
     }
 
     fun goToAudioMaker() {
-        router.openAudioRekorderScreen(Rekord(rekordType = RekordType.AUDIO))
+        val unsatisfiedPermissions = AppPermissions.getUnsatisfiedPermissions(context, AUDIO_REQUEST_KEY, STORAGE_REQUEST_KEY)
+
+        if(unsatisfiedPermissions.isEmpty()) {
+            router.openAudioRekorderScreen(Rekord(rekordType = RekordType.AUDIO))
+        } else {
+            viewState.askForPermissions(unsatisfiedPermissions, AUDIO_REQUEST_KEY)
+        }
     }
 
     private fun goToVideoViewer(rekord: Rekord) {
