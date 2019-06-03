@@ -7,7 +7,7 @@ import com.iyushchuk.rekorderr.core.domain.converters.AppConverters
 import com.iyushchuk.rekorderr.core.domain.dao.RekordDao
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 
-@Database(entities = [Rekord::class], version = AppDatabase.VERSION)
+@Database(entities = [Rekord::class], version = AppDatabase.VERSION, exportSchema = false)
 @TypeConverters(AppConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {

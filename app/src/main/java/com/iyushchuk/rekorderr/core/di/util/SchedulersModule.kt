@@ -5,11 +5,12 @@ import com.iyushchuk.rekorderr.core.schedulers.AppRxSchedulers
 import com.iyushchuk.rekorderr.core.schedulers.RxSchedulers
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class SchedulersModule {
 
-    @AppScope
+    @Singleton
     @Provides
     internal fun provideRxSchedulers(): RxSchedulers = AppRxSchedulers()
 }

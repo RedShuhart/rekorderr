@@ -5,7 +5,9 @@ import com.iyushchuk.rekorderr.core.domain.repository.RekordRepository
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpPresenter
 import com.iyushchuk.rekorderr.core.navigation.AppRouter
 import com.iyushchuk.rekorderr.core.schedulers.RxSchedulers
+import io.reactivex.Single
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SplashPresenter @Inject internal constructor(
@@ -16,21 +18,16 @@ class SplashPresenter @Inject internal constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getFeed()
+        goToFeed()
     }
 
-    fun getFeed() {
-        rekordRepository.getRekords()
-            .compose(rxSchedulers.ioToMain())
-            .progress()
-            .subscribe(
-                {result -> goToFeed(result)},
-                {throwable -> Timber.e(throwable)}
-            ).unsubscribeOnDestroy()
+    fun goToFeed() {
+        Single.just("")
+            .delay(500, TimeUnit.MILLISECONDS)
+            .compose(rxSchedulers.computationToMainSingle())
+            .subscribe{ _ -> router.openFeedCardsScreen(mutableListOf()) }
+            .unsubscribeOnDestroy()
 
-    }
 
-    private fun goToFeed(rekords: List<Rekord>) {
-        router.openFeedCardsScreen(rekords.toMutableList())
     }
 }

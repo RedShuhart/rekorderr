@@ -15,7 +15,7 @@ class PhotoViewerPresenter @Inject internal constructor(
     private val context: Context,
     private val router: AppRouter,
     private val photo: Rekord
-) : BaseMvpPresenter<PhotoRekorderView>() {
+) : BaseMvpPresenter<PhotoViewerView>() {
     fun goBack() {
         router.openFeedCardsScreen(mutableListOf())
     }
