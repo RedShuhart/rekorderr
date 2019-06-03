@@ -68,10 +68,10 @@ fun millisToLengthString(millis: Long?): String {
     val minutes = millis / 1000 / 60
     val seconds = millis / 1000 % 60
 
-    val minString = if (minutes > 0) "$minutes min :" else ""
+    val minString = if (minutes > 0) "$minutes min : " else ""
     val secString = if (seconds > 0) "$seconds s" else ""
 
-    return "$minString $secString"
+    return "$minString$secString"
 }
 
 class ViewType {

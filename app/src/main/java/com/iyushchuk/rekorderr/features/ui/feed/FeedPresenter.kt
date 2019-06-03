@@ -27,7 +27,11 @@ class FeedPresenter @Inject internal constructor(
     private val feed: MutableList<Rekord>
 ) : BaseMvpPresenter<FeedView>() {
 
-    private val adapter = FeedAdapter(onClickListener = this::onFeedItemClick)
+    private val adapter = FeedAdapter(
+        onClickListener = this::onFeedItemClick,
+        onLongClickListener = this::onLongFeedItemClick
+    )
+
     private var layoutType = LIST
 
     override fun onFirstViewAttach() {
@@ -41,36 +45,6 @@ class FeedPresenter @Inject internal constructor(
         layoutType = type
         viewState.setLayout(layoutType)
         adapter.viewType = layoutType
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun onFeedItemClick(position: Int) {
-        val rekord = feed[position]
-        when(rekord.rekordType) {
-            RekordType.VIDEO -> goToVideoViewer(rekord)
-            RekordType.PHOTO -> goToPhotoViewer(rekord)
-            RekordType.AUDIO -> goToAudioViewer(rekord)
-        }
-    }
-
-
-    private fun getFeed() {
-        rekordRepository.getRekords()
-            .compose(rxSchedulers.ioToMain())
-            .progress()
-            .subscribe(
-                {result ->
-                    viewState.hideProgress()
-                    feed.clear()
-                    feed.addAll(result)
-                    enrichAdapter(result.toMutableList())},
-                {throwable -> Timber.e(throwable)}
-            ).unsubscribeOnDestroy()
-    }
-
-    private fun enrichAdapter(feed: MutableList<Rekord>) {
-        adapter.clear()
-        adapter.addAll(feed)
         adapter.notifyDataSetChanged()
     }
 
@@ -103,6 +77,50 @@ class FeedPresenter @Inject internal constructor(
         } else {
             viewState.askForPermissions(unsatisfiedPermissions, AUDIO_REQUEST_KEY)
         }
+    }
+
+    private fun onFeedItemClick(position: Int) {
+        val rekord = feed[position]
+        when(rekord.rekordType) {
+            RekordType.VIDEO -> goToVideoViewer(rekord)
+            RekordType.PHOTO -> goToPhotoViewer(rekord)
+            RekordType.AUDIO -> goToAudioViewer(rekord)
+        }
+    }
+
+    private fun onLongFeedItemClick(position: Int) {
+        viewState.showDeleteDialog(feed[position])
+    }
+
+
+    private fun getFeed() {
+        rekordRepository.getRekords()
+            .compose(rxSchedulers.ioToMain())
+            .progress()
+            .subscribe(
+                {result ->
+                    viewState.hideProgress()
+                    feed.clear()
+                    feed.addAll(result)
+                    enrichAdapter(result.toMutableList())},
+                {throwable -> Timber.e(throwable)}
+            ).unsubscribeOnDestroy()
+    }
+
+    private fun enrichAdapter(feed: MutableList<Rekord>) {
+        adapter.clear()
+        adapter.addAll(feed)
+        adapter.notifyDataSetChanged()
+    }
+
+    fun deleteRekord(rekord: Rekord) {
+        rekordRepository.deleteRekord(rekord)
+            .compose(rxSchedulers.ioToMainCompletable())
+            .subscribe(
+                { viewState.hideDeleteDialog()
+                    getFeed() },
+                { throwable -> Timber.e(throwable) }
+            ).unsubscribeOnDestroy()
     }
 
     private fun goToVideoViewer(rekord: Rekord) {

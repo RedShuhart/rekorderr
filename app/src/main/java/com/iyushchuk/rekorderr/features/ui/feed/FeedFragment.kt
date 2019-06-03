@@ -1,15 +1,16 @@
 package com.iyushchuk.rekorderr.features.ui.feed
 
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
+import androidx.appcompat.app.AlertDialog
+
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.iyushchuk.rekorderr.R
@@ -21,10 +22,10 @@ import com.iyushchuk.rekorderr.core.shared.AppPermissions.Companion.VIDEO_REQUES
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.GRID
 import com.iyushchuk.rekorderr.core.shared.ViewType.Companion.LIST
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
-import timber.log.Timber
 import javax.inject.Inject
 
 class FeedFragment : BaseMvpFragment(), FeedView {
+
 
     @Inject
     @InjectPresenter
@@ -35,6 +36,7 @@ class FeedFragment : BaseMvpFragment(), FeedView {
 
     private lateinit var feedView: RecyclerView
     private lateinit var progressBar: ContentLoadingProgressBar
+    private lateinit var deleteDialog: AlertDialog
 
     private val gridLayoutManager by lazy {
         GridLayoutManager(activity, 2, RecyclerView.VERTICAL, false)
@@ -119,13 +121,24 @@ class FeedFragment : BaseMvpFragment(), FeedView {
     }
 
     override fun showProgress() {
-        Log.d("FEED", "showProgress")
         progressBar.show()
     }
 
     override fun hideProgress() {
-        Log.d("FEED", "hideProgress")
         progressBar.hide()
+    }
+
+    override fun hideDeleteDialog() {
+        deleteDialog.cancel()
+    }
+
+    override fun showDeleteDialog(rekord: Rekord) {
+        deleteDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Delete Record")
+            .setMessage("Do you want to delete: ${rekord.title}")
+            .setPositiveButton("YES") { _, _ -> presenter.deleteRekord(rekord) }
+            .setNegativeButton("NO") { dialog, _ -> dialog.cancel() }
+            .create().apply { show() }
     }
 
 

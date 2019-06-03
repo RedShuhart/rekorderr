@@ -2,6 +2,7 @@ package com.iyushchuk.rekorderr.features.ui.feed
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.iyushchuk.rekorderr.R
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import android.view.LayoutInflater
@@ -21,14 +22,15 @@ import com.iyushchuk.rekorderr.core.shared.printInstant
 
 class FeedAdapter(
     private val data: MutableList<Rekord> = mutableListOf(),
-    val onClickListener: (position: Int) -> Unit = {}
+    val onClickListener: (position: Int) -> Unit = {},
+    val onLongClickListener: (position: Int) -> Unit = {}
 ): RecyclerView.Adapter<FeedAdapter.RekordViewHolder>(), MutableList<Rekord> by data {
 
     var viewType = LIST
 
     override fun onBindViewHolder(holder: RekordViewHolder, position: Int) {
         val item = get(position)
-        holder.bindTo(item, position, holder.itemView.context, onClickListener)
+        holder.bindTo(item, position, holder.itemView.context, onClickListener, onLongClickListener)
     }
 
     override fun getItemViewType(position: Int) = viewType
@@ -50,7 +52,9 @@ class FeedAdapter(
             item: Rekord,
             position: Int,
             context: Context,
-            onClickListener: (position: Int) -> Unit = {}
+            onClickListener: (position: Int) -> Unit = {},
+            onLongClickListener: (position: Int) -> Unit = {}
+
         )
 
         class GridViewHolder(view: View) : RekordViewHolder(view) {
@@ -62,12 +66,18 @@ class FeedAdapter(
                 item: Rekord,
                 position: Int,
                 context: Context,
-                onClickListener: (position: Int) -> Unit
+                onClickListener: (position: Int) -> Unit,
+                onLongClickListener: (position: Int) -> Unit
+
             ) {
                 type.setImageDrawable(resolveTypeIcon(item, context))
                 resolveThumbnailInfo(item, itemInfo, thumbnail, context)
                 thumbnail.setOnClickListener {
                     onClickListener(position)
+                }
+                thumbnail.setOnLongClickListener {
+                    onLongClickListener(position)
+                    true
                 }
             }
         }
@@ -84,7 +94,8 @@ class FeedAdapter(
                 item: Rekord,
                 position: Int,
                 context: Context,
-                onClickListener: (position: Int) -> Unit
+                onClickListener: (position: Int) -> Unit,
+                onLongClickListener: (position: Int) -> Unit
             ) {
                 title.text = item.title
                 createdAt.text = printInstant(item.createdAt)
@@ -92,6 +103,10 @@ class FeedAdapter(
                 resolveThumbnailInfo(item, itemInfo, thumbnail, context)
                 feedCard.setOnClickListener {
                     onClickListener(position)
+                }
+                feedCard.setOnLongClickListener {
+                    onLongClickListener(position)
+                    true
                 }
             }
         }
