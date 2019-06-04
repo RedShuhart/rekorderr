@@ -49,6 +49,16 @@ class VideoRekorderFragment : BaseMvpFragment(), VideoRekorderView {
         initCameraView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBaseActivity().supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getBaseActivity().supportActionBar?.show()
+    }
+
     override fun startTakingVideo(file: File) {
         cameraView.takeVideo(file)
     }

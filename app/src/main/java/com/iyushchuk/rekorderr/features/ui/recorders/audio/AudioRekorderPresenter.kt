@@ -55,6 +55,7 @@ class AudioRekorderPresenter @Inject internal constructor(
 
 
     fun goBack() {
+        viewState.enableRotation()
         router.openFeedCardsScreen(mutableListOf())
     }
 
