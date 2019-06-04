@@ -19,6 +19,10 @@ class PhotoRekorderPresenter @Inject internal constructor(
     private val photo: Rekord
 ) : BaseMvpPresenter<PhotoRekorderView>() {
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.disableRotation()
+    }
 
     fun onPhotoTaken(result: PictureResult) {
         result.toFile(File(photo.getPath())) {}
@@ -27,6 +31,10 @@ class PhotoRekorderPresenter @Inject internal constructor(
 
     fun onTakePhoto() {
         viewState.takePhoto(File(photo.getPath()))
+    }
+
+    fun goBack() {
+        router.openFeedCardsScreen(mutableListOf())
     }
 
 

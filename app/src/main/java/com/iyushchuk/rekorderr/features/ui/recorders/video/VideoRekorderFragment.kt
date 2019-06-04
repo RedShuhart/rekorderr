@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.features.ui.recorders.video
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.AppCompatImageButton
@@ -11,16 +12,12 @@ import com.iyushchuk.rekorderr.core.domain.entities.Rekord
 import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.RECORDING
 import com.iyushchuk.rekorderr.core.shared.RecordingState.Companion.STOPPED
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpFragment
-import com.otaliastudios.cameraview.CameraListener
-import com.otaliastudios.cameraview.CameraView
-import com.otaliastudios.cameraview.Mode
-import com.otaliastudios.cameraview.VideoResult
+import com.otaliastudios.cameraview.*
 import java.io.File
 
 import javax.inject.Inject
 
 class VideoRekorderFragment : BaseMvpFragment(), VideoRekorderView {
-
 
     @Inject
     @InjectPresenter
@@ -67,16 +64,31 @@ class VideoRekorderFragment : BaseMvpFragment(), VideoRekorderView {
         }
     }
 
+    override fun disableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    }
+
+    override fun enableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+    }
+
     private fun initCameraView() {
         cameraView.apply {
             mode = Mode.VIDEO
             setLifecycleOwner(viewLifecycleOwner)
+            mapGesture(Gesture.TAP, GestureAction.FOCUS_WITH_MARKER)
+
             addCameraListener(object : CameraListener() {
                 override fun onVideoTaken(result: VideoResult) {
                     presenter.onVideoTaken()
                 }
             })
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        presenter.goBack()
+        return true
     }
 
     companion object {

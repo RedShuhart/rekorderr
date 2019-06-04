@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.features.ui.recorders.audio
 
+import android.content.pm.ActivityInfo
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -70,6 +71,19 @@ class AudioRekorderFragment : BaseMvpFragment(), AudioRekorderView {
         }
     }
 
+    override fun disableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    }
+
+    override fun enableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+    }
+
+
+    override fun onBackPressed(): Boolean {
+        presenter.goBack()
+        return true
+    }
 
     companion object {
 

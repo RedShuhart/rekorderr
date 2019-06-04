@@ -1,5 +1,6 @@
 package com.iyushchuk.rekorderr.features.ui.recorders.photo
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.AppCompatImageButton
@@ -62,6 +63,20 @@ class PhotoRekorderFragment : BaseMvpFragment(), PhotoRekorderView {
                 }
             })
         }
+    }
+
+    override fun disableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    }
+
+    override fun enableRotation() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+    }
+
+
+    override fun onBackPressed(): Boolean {
+        presenter.goBack()
+        return true
     }
 
 

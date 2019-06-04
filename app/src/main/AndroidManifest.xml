@@ -20,8 +20,7 @@
 
         <activity
                 android:name="com.iyushchuk.rekorderr.features.ui.MainActivity"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-                android:screenOrientation="portrait">
+                android:configChanges="keyboard|keyboardHidden|screenSize|screenLayout|smallestScreenSize|uiMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

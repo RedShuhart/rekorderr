@@ -33,8 +33,14 @@ class AudioRekorderPresenter @Inject internal constructor(
         recordingState = !recordingState
         viewState.changeActionButtonState(recordingState)
         when (recordingState) {
-            RecordingState.RECORDING -> viewState.startRecordingAudio(File(video.getPath()))
-            RecordingState.STOPPED -> viewState.stopRecordingAudio()
+            RecordingState.RECORDING -> {
+                viewState.disableRotation()
+                viewState.startRecordingAudio(File(video.getPath()))
+            }
+            RecordingState.STOPPED -> {
+                viewState.enableRotation()
+                viewState.stopRecordingAudio()
+            }
         }
     }
 
@@ -47,5 +53,9 @@ class AudioRekorderPresenter @Inject internal constructor(
         router.openRekordFormScreen(video.copy(length = timeInMillis))
     }
 
+
+    fun goBack() {
+        router.openFeedCardsScreen(mutableListOf())
+    }
 
 }
