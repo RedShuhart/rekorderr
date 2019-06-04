@@ -74,11 +74,13 @@ class RekordPlayerFragment : BaseMvpFragment(), RekordPlayerView {
     override fun onStart() {
         super.onStart()
         initializePlayer()
+        getBaseActivity().supportActionBar?.hide()
     }
 
     override fun onStop() {
         super.onStop()
         releasePlayer()
+        getBaseActivity().supportActionBar?.show()
     }
 
     private fun initializePlayer() {
