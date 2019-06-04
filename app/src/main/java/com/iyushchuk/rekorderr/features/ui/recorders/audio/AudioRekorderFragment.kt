@@ -46,7 +46,7 @@ class AudioRekorderFragment : BaseMvpFragment(), AudioRekorderView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        getBaseActivity().actionBar?.hide()
         actionButton = view.findViewById(R.id.action_button)
         actionButton.setOnClickListener { presenter.changeState() }
 

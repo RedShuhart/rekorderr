@@ -49,6 +49,16 @@ class PhotoRekorderFragment : BaseMvpFragment(), PhotoRekorderView {
         initCameraView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBaseActivity().supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getBaseActivity().supportActionBar?.show()
+    }
+
     override fun takePhoto(file: File) {
         cameraView.takePicture()
     }
