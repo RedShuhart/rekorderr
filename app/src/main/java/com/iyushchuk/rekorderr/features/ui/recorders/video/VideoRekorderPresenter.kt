@@ -26,14 +26,21 @@ class VideoRekorderPresenter @Inject internal constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.changeActionButtonState(recordingState)
+        viewState.disableRotation()
     }
 
     fun changeState() {
         recordingState = !recordingState
         viewState.changeActionButtonState(recordingState)
         when (recordingState) {
-            RECORDING -> viewState.startTakingVideo(File(video.getPath()))
-            STOPPED -> viewState.stopTakingVideo()
+            RECORDING -> {
+                viewState.startTakingVideo(File(video.getPath()))
+
+            }
+            STOPPED -> {
+                viewState.enableRotation()
+                viewState.stopTakingVideo()
+            }
         }
     }
 
@@ -46,5 +53,8 @@ class VideoRekorderPresenter @Inject internal constructor(
         router.openRekordFormScreen(video.copy(length = timeInMillis))
     }
 
+    fun goBack() {
+        router.openFeedCardsScreen(mutableListOf())
+    }
 
 }
