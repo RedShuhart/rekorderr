@@ -25,6 +25,7 @@ class PhotoRekorderPresenter @Inject internal constructor(
     }
 
     fun onPhotoTaken(result: PictureResult) {
+        viewState.enableRotation()
         result.toFile(File(photo.getPath())) {}
         router.openRekordFormScreen(photo)
     }
