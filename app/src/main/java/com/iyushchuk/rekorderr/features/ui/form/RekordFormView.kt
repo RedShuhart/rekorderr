@@ -5,4 +5,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.iyushchuk.rekorderr.features.common.mvp.BaseMvpView
 import java.io.File
 
-interface RekordFormView: BaseMvpView
+interface RekordFormView: BaseMvpView {
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun highlightText()
+}

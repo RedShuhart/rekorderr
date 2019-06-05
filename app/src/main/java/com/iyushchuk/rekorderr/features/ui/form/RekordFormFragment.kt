@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.iyushchuk.rekorderr.R
 import com.iyushchuk.rekorderr.core.di.ui.fragments.RekordFormModule
 import com.iyushchuk.rekorderr.core.domain.entities.Rekord
@@ -33,6 +34,7 @@ class RekordFormFragment : BaseMvpFragment(), RekordFormView {
     private lateinit var thumbnail: AppCompatImageView
     private lateinit var saveButton: AppCompatButton
     private lateinit var titleText: TextInputEditText
+    private lateinit var textInputLayout: TextInputLayout
     private lateinit var typeIcon: AppCompatImageView
 
     lateinit var rekord: Rekord
@@ -53,6 +55,7 @@ class RekordFormFragment : BaseMvpFragment(), RekordFormView {
         saveButton = view.findViewById(R.id.save_button)
         titleText = view.findViewById(R.id.rekord_title)
         typeIcon = view.findViewById(R.id.type_icon)
+        textInputLayout = view.findViewById(R.id.textInputLayout)
 
         typeIcon.setImageDrawable(resolveTypeIcon(rekord, requireContext()))
 
@@ -71,6 +74,10 @@ class RekordFormFragment : BaseMvpFragment(), RekordFormView {
         }
 
 
+    }
+
+    override fun highlightText() {
+        textInputLayout.error = "Incorrect Input"
     }
 
     override fun onBackPressed(): Boolean {

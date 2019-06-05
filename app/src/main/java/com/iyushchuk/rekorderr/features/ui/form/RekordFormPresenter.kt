@@ -21,17 +21,27 @@ class RekordFormPresenter @Inject internal constructor(
 ) : BaseMvpPresenter<RekordFormView>() {
 
     fun saveRekord(text: String) {
-        val finalRekord = rekord.copy(title = text)
-        rekordRepository.saveRekord(finalRekord)
-            .compose(rxSchedulers.ioToMainCompletable())
-            .subscribe {
-                router.openFeedCardsScreen(mutableListOf(finalRekord))
-            }.unsubscribeOnDestroy()
+        if(validate(text)) {
+            val finalRekord = rekord.copy(title = text)
+            rekordRepository.saveRekord(finalRekord)
+                .compose(rxSchedulers.ioToMainCompletable())
+                .subscribe {
+                    router.openFeedCardsScreen(mutableListOf(finalRekord))
+                }.unsubscribeOnDestroy()
+        } else {
+            viewState.highlightText()
+        }
     }
 
     fun cancel() {
         val file = File(rekord.getPath())
         file.delete()
         router.openFeedCardsScreen(mutableListOf())
+    }
+
+    private fun validate(text: String): Boolean {
+        val correctPattern = Regex("[A-Za-z0-9 ]+").matches(text)
+        val correctLength = text.length <= 20
+        return correctLength && correctPattern
     }
 }
